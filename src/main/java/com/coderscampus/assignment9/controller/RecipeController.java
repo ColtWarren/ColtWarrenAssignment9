@@ -42,10 +42,4 @@ public class RecipeController {
     public List<Recipe> getVegetarianRecipes() {
         return service.getVegetarianRecipes();
     }
-    /* http://localhost:8080/api/recipes/all-recipes works
-       http://localhost:8080/api/recipes/gluten-free works
-       http://localhost:8080/api/recipes/vegan works
-       http://localhost:8080/api/recipes/vegan-and-gluten-free works
-       http://localhost:8080/api/recipes/vegetarian works
-    */
 }
