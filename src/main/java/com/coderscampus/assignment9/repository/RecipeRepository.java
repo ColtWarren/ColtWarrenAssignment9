@@ -10,19 +10,19 @@ import java.util.List;
 
 @Repository
 public class RecipeRepository {
-    private final RecipeFileService fileService;
+    private final RecipeFileService recipeFileService;
     private List<Recipe> recipes = new ArrayList<>();
 
-    public RecipeRepository(RecipeFileService fileService) {
-        this.fileService = fileService;
+    public RecipeRepository(RecipeFileService recipeFileService) {
+        this.recipeFileService = recipeFileService;
     }
 
     @PostConstruct
     private void init() {
-        this.recipes = fileService.loadRecipes("recipes.txt");
+        recipes = recipeFileService.loadRecipes("recipes.txt");
     }
 
-    public List<Recipe> findAll() {
-        return List.copyOf(recipes);
+    public List<Recipe> getAll() {
+       return recipes;
     }
 }

@@ -6,21 +6,18 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.FileReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class RecipeFileService {
 
     public List<Recipe> loadRecipes(String filename) {
         List<Recipe> recipes = new ArrayList<>();
-        String projectRoot = System.getProperty("user.dir");
-        File file = new File(projectRoot + File.separator + filename);
-
-        try (Reader reader = new FileReader(file);
+        try (FileReader reader = new FileReader(filename);
              CSVParser csvParser = CSVFormat.DEFAULT.builder()
                      .setHeader()
                      .setSkipHeaderRecord(true)
@@ -36,17 +33,17 @@ public class RecipeFileService {
             for (CSVRecord record : csvParser) {
                 Recipe recipe = new Recipe(
                         parseInt(record.get("Cooking Minutes")),
-                        parseBool(record.get("Dairy Free")),
-                        parseBool(record.get("Gluten Free")),
+                        Boolean.parseBoolean(record.get("Dairy Free")),
+                        Boolean.parseBoolean(record.get("Gluten Free")),
                         record.get("Instructions"),
-                        parseDouble(record.get("Preparation Minutes")),
-                        parseDouble(record.get("Price Per Serving")),
-                        parseInt(record.get("Ready In Minutes")),
-                        parseInt(record.get("Servings")),
-                        parseDouble(record.get("Spoonacular Score")),
+                        Double.parseDouble(record.get("Preparation Minutes")),
+                        Double.parseDouble(record.get("Price Per Serving")),
+                        Integer.parseInt(record.get("Ready In Minutes")),
+                        Integer.parseInt(record.get("Servings")),
+                        Double.parseDouble(record.get("Spoonacular Score")),
                         record.get("Title"),
-                        parseBool(record.get("Vegan")),
-                        parseBool(record.get("Vegetarian"))
+                        Boolean.parseBoolean(record.get("Vegan")),
+                        Boolean.parseBoolean(record.get("Vegetarian"))
                 );
                 recipes.add(recipe);
             }
@@ -54,33 +51,5 @@ public class RecipeFileService {
             throw new RuntimeException("Failed to load recipes", e);
         }
         return recipes;
-    }
-
-    private Integer parseInt(String value) {
-        if (value == null || value.isBlank()) return null;
-        try {
-            return Integer.parseInt(value.trim());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Double parseDouble(String value) {
-        if (value == null || value.isBlank()) return null;
-        try {
-            return Double.parseDouble(value.trim());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Boolean parseBool(String value) {
-        if (value == null || value.isBlank()) return null;
-        String normalized = value.trim().toLowerCase();
-        return normalized.equals("true") || normalized.equals("1");
-    }
-
-    public List<Recipe> readRecipeFile() {
-        return List.of();
     }
 }

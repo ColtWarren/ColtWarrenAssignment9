@@ -16,31 +16,31 @@ public class RecipeService {
         this.repository = repository;
     }
 
-    public List<Recipe> getAllRecipes() {
-        return repository.findAll();
+    public List<Recipe> getAll() {
+        return repository.getAll();
     }
 
-    public List<Recipe> getGlutenFreeRecipes() {
-        return repository.findAll().stream()
-                .filter(r -> Boolean.TRUE.equals(r.getGlutenFree()))
+    public List<Recipe> getGlutenFree() {
+        return getAll().stream()
+                .filter(Recipe::getGlutenFree)
                 .collect(Collectors.toList());
     }
 
-    public List<Recipe> getVeganRecipes() {
-        return repository.findAll().stream()
-                .filter(r -> Boolean.TRUE.equals(r.getVegan()))
+    public List<Recipe> getVegan() {
+        return getAll().stream()
+                .filter(Recipe::getVegan)
                 .collect(Collectors.toList());
     }
 
-    public List<Recipe> getVeganAndGlutenFreeRecipes() {
-        return repository.findAll().stream()
-                .filter(r -> Boolean.TRUE.equals(r.getVegan()) && Boolean.TRUE.equals(r.getGlutenFree()))
+    public List<Recipe> getVeganAndGlutenFree() {
+        return getAll().stream()
+                .filter(recipe -> recipe.getVegan() && recipe.getGlutenFree())
                 .collect(Collectors.toList());
     }
 
-    public List<Recipe> getVegetarianRecipes() {
-        return repository.findAll().stream()
-                .filter(r -> Boolean.TRUE.equals(r.getVegetarian()))
+    public List<Recipe> getVegetarian() {
+        return getAll().stream()
+                .filter((Recipe::getVegetarian)                           )
                 .collect(Collectors.toList());
     }
 }

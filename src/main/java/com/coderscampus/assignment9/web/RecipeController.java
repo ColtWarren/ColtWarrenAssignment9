@@ -1,4 +1,4 @@
-package com.coderscampus.assignment9.controller;
+package com.coderscampus.assignment9.web;
 
 import com.coderscampus.assignment9.domain.Recipe;
 import com.coderscampus.assignment9.service.RecipeService;
@@ -12,34 +12,34 @@ import java.util.List;
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
-    private final RecipeService service;
+    private final RecipeService recipeService;
 
-    public RecipeController(RecipeService service) {
-        this.service = service;
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @GetMapping("/all-recipes")
     public List<Recipe> getAllRecipes() {
-        return service.getAllRecipes();
+        return recipeService.getAll();
     }
 
     @GetMapping("/gluten-free")
     public List<Recipe> getGlutenFreeRecipes() {
-        return service.getGlutenFreeRecipes();
+        return recipeService.getGlutenFree();
     }
 
     @GetMapping("/vegan")
     public List<Recipe> getVeganRecipes() {
-        return service.getVeganRecipes();
+        return recipeService.getVegan();
     }
 
     @GetMapping("/vegan-and-gluten-free")
     public List<Recipe> getVeganAndGlutenFreeRecipes() {
-        return service.getVeganAndGlutenFreeRecipes();
+        return recipeService.getVeganAndGlutenFree();
     }
 
     @GetMapping("/vegetarian")
     public List<Recipe> getVegetarianRecipes() {
-        return service.getVegetarianRecipes();
+        return recipeService.getVegetarian();
     }
 }
