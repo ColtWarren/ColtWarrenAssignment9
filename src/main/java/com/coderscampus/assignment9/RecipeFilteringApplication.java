@@ -10,17 +10,3 @@ public class RecipeFilteringApplication {
         SpringApplication.run(RecipeFilteringApplication.class, args);
     }
 }
-/*
-http://localhost:8080/api/recipes/all-recipes
-
-http://localhost:8080/api/recipes/gluten-free
-
-http://localhost:8080/api/recipes/vegan
-
-http://localhost:8080/api/recipes/vegan-and-gluten-free
-
-http://localhost:8080/api/recipes/vegetarian
-*/
-
-
-
